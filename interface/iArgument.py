@@ -1,13 +1,11 @@
-"""Holds the IArgument abstract class."""
-
 from abc import abstractmethod
 from typing import Generic, Optional, TypeVar, Union
 
-from interface.quitError import QuitError
+from interface.Quit import Quit
 
-K = TypeVar('K')
+CorrectType = TypeVar('CorrectType')
 
-class IArgument(Generic[K]):
+class IArgument(Generic[CorrectType]):
     """Defines an argument."""
 
     _prompt: str
@@ -19,20 +17,20 @@ class IArgument(Generic[K]):
 
     @abstractmethod
     def _validate(self, value: str) -> Union[str, bool]:
-        """Validate returns whether the given input is valid."""
+        """Validate an argument"""
 
     @abstractmethod
-    def _sanitize(self, value: str) -> K:
+    def _sanitize(self, value: str) -> CorrectType:
         """Sanitize the value and cast it to the desired type."""
 
-    def ask(self) -> K:
+    def ask(self) -> CorrectType:
         """Asks the user for the argument."""
 
         user_input: Optional[str] = None
         while True:
             user_input = input(self._prompt)
             if user_input in ['q', 'quit']:
-                raise QuitError()
+                raise Quit()
 
             validated = self._validate(user_input)
             if isinstance(validated, str):

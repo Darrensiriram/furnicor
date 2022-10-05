@@ -1,15 +1,6 @@
-import os
-import sqlite3
-from interface.console import Console
-
-
-
-
-
-
-
+from interface.Interface import Interface
 
 if __name__ == '__main__':
-    application = Console('Furnicor application')
+    application = Interface('Furnicor application')
     application.startApplication()
 
