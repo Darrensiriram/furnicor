@@ -3,7 +3,7 @@
 from abc import abstractmethod
 from typing import Generic, Optional, TypeVar, Union
 
-from quitError import QuitError
+from interface.quitError import QuitError
 
 K = TypeVar('K')
 

@@ -1,15 +1,18 @@
 import os
 from typing import Any,Dict
+from interface.icommand import ICommand
 
 class Console:
 
     title = None
     width = None
-    # __commands: Dict[str, Icommand]
+    __commands: Dict[str, ICommand]
     def __init__(self, title, width: int = os.get_terminal_size().columns) -> None:
         self.title = title
         self.width = width
 
+    def createCommands(self, description: str , command: ICommand):
+        self.__commands[description] = command
 
     def startApplication(self) -> None:
         while True:
@@ -55,7 +58,7 @@ class Console:
             break
         return enable_cmd[choise - 1][1]
 
-    def __get_arguments_for_command(cls,command: Icommand) -> Dict[str, Any]:
+    def __get_arguments_for_command(cls,command: ICommand) -> Dict[str, Any]:
         arguments = {}
         for argument in command.arguments():
             arguments[argument.get_name()] = argument.ask()

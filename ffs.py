@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from interface.console import Console
 
 
 
@@ -9,4 +10,6 @@ import sqlite3
 
 
 if __name__ == '__main__':
-    pass
+    application = Console('Furnicor application')
+    application.startApplication()
+

@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List
 
-from iargument import IArgument
+from interface.iargument import IArgument
 
 class ICommand(ABC):
     """A command defines an action in the system."""
