@@ -15,12 +15,12 @@ def createId() -> int:
 def currentTime() -> datetime:
     return datetime.now()
 
-class Employee(IModel):
+class Member(IModel):
     first_name: str
     last_name: str
     street_name: str
     house_number: str
-    postalCode : str
+    postalCode: str
     city:  str
     email: str
     phone: str
@@ -29,5 +29,5 @@ class Employee(IModel):
 
     def getId(self) -> int:
         return self.id
-    def employeeInfo(self) -> str:
+    def memberInfo(self) -> str:
         return f'{self.first_name} {self.last_name}. {self.id}'

@@ -17,14 +17,14 @@ class IResponse(Generic[CorrectType]):
 
     @abstractmethod
     def _validate(self, value: str) -> Union[str, bool]:
-        """Validate an argument"""
+        """Validate an response"""
 
     @abstractmethod
     def _sanitize(self, value: str) -> CorrectType:
         """Sanitize the value and cast it to the desired type."""
 
     def ask(self) -> CorrectType:
-        """Asks the user for the argument."""
+        """Asks the user for the response."""
 
         user_input: Optional[str] = None
         while True:
@@ -46,5 +46,5 @@ class IResponse(Generic[CorrectType]):
         return self._sanitize(user_input)
 
     def get_name(self) -> str:
-        """Returns the argument name."""
+        """Returns the response name."""
         return self._name

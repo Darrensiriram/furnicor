@@ -11,6 +11,8 @@ def currentTime() -> datetime:
 @dataclass
 class User(IModel):
     username: str
+    first_name: str
+    last_name: str
     role: str
     password: str = field(repr=False)
     salt: str = field(repr=False)
