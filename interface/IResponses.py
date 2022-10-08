@@ -5,7 +5,7 @@ from interface.Quit import Quit
 
 CorrectType = TypeVar('CorrectType')
 
-class IArgument(Generic[CorrectType]):
+class IResponse(Generic[CorrectType]):
     """Defines an argument."""
 
     _prompt: str
