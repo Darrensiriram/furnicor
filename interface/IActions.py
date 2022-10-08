@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List
-from interface.iArgument import IArgument
+from interface.IResponses import IResponse
 
 class IActions(ABC):
     """Actions are made here"""
@@ -9,7 +9,7 @@ class IActions(ABC):
         """Check if a command is actived"""
 
     @abstractmethod
-    def arguments(self) -> List[IArgument]:
+    def arguments(self) -> List[IResponse]:
         """Return a list of all arguments that can perfom that action"""
 
     @abstractmethod
