@@ -40,20 +40,20 @@ class Interface:
             print(f'{i} - {name}')
             i += 1
         print()
-        choise = None
+        choice = None
 
         while True:
             try:
-                choise = int(input('Choose a number: '))
+                choice = int(input('Choose a number: '))
             except ValueError:
                 print('Incorrect choice!')
                 continue
 
-            if choise < 1 or choise > len(activateCommands):
+            if choice < 1 or choice > len(activateCommands):
                 print("Index out of range!")
                 continue
             break
-        return activateCommands[choise - 1][1]
+        return activateCommands[choice - 1][1]
 
     def __get_arguments_for_Actions(cls, action: IActions) -> Dict[str, Any]:
         arguments = {}

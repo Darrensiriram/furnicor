@@ -33,7 +33,7 @@ class IDatabaseActions(Generic[CorrectType]):
     def selectAll(self) -> List[CorrectType]:
         """Return all the records of the model"""
     @abstractmethod
-    def selectOne(self, Id: int) -> List[CorrectType]:
+    def selectOne(self, Id: int) -> CorrectType:
         """Return one selected model chosen by Id"""
 
     @abstractmethod

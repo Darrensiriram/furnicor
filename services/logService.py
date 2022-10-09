@@ -18,7 +18,7 @@ class LogService():
         log = Log(message, user=currentLoggedInUser)
         self.action.create(log)
 
-    def fraudDecection(self, message: str):
+    def logFraud(self, message: str):
         currentLoggedInUser = self.session.currentUser if self.session.loginCheck() else None
         log = Log(message, is_suspicious=True, user=currentLoggedInUser)
         self.action.create(log)
