@@ -3,7 +3,6 @@ from os import path
 import shutil
 from datetime import datetime
 from typing import List
-
 from services.logService import LogService
 
 class BackUpService:

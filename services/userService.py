@@ -12,7 +12,7 @@ class UserService():
     session: SessionService
     log: LogService
 
-    def __int__(self, action: IDatabaseActions[User], pwHasher: pwHasher, session: session, log: log):
+    def __init__(self, action: IDatabaseActions[User], pwHasher: pwHasher, session: session, log: log):
         self.action = action
         self.pwHasher = pwHasher
         self.session = session

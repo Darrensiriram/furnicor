@@ -7,7 +7,7 @@ class CeasarEncryption(IEncryption):
 
     plaintText: str
 
-    def __int__(self, plainText: str) -> None:
+    def __init__(self, plainText: str) -> None:
         self.plaintText = plainText
 
 

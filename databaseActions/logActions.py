@@ -25,7 +25,7 @@ class LogActions(IDatabaseActions[Log]):
         return ['message']
 
     def __init__(self, connection: Connection, cipher: IEncryption, userAction: IDatabaseActions[User]) -> None:
-        super().__int__(connection, cipher)
+        super().__init__(connection, cipher)
         self.userAction = userAction
 
 
@@ -34,7 +34,7 @@ class LogActions(IDatabaseActions[Log]):
         return [self.decryptTuple(value) for value in sql]
 
     def selectOne(self, Id: int) -> Log:
-        sql = self.connection.execute('select * FROM logs WHERE id = ?' (Id)).fetchone()
+        sql = self.connection.execute('select * FROM logs WHERE id = ?', (Id)).fetchone()
         if not sql:
             raise Exception(f"No log found with Id: {Id}")
         return self.decryptTuple(sql)

@@ -2,8 +2,10 @@ from typing import Any, Dict, List
 from model.user import User
 from interface.IDatabaseActions import IDatabaseActions
 
+
 class UserActions(IDatabaseActions[User]):
 
+    @property
     def allowedColumns(self) -> List[str]:
         return [
             'id',
@@ -16,6 +18,8 @@ class UserActions(IDatabaseActions[User]):
             'role',
             'has_temp_password',
         ]
+
+    @property
     def encryptColumns(self) -> List[str]:
         return ['first_name', 'last_name']
 
@@ -61,8 +65,8 @@ class UserActions(IDatabaseActions[User]):
         results = self.findModel('user', criteria)
         return [self.decryptTuple(result) for result in results]
 
-    def encrypt(self, user:User) -> Dict:
-        return{
+    def encrypt(self, user: User) -> Dict:
+        return {
             'id': user.id,
             'username': self.cipher.encrypt(user.username),
             'first_name': self.cipher.encrypt(user.first_name),

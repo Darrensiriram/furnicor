@@ -9,7 +9,7 @@ class IDatabaseActions(Generic[CorrectType]):
     connection: Connection
     cipher: IEncryption
 
-    def __int__(self, connection: Connection, cipher: IEncryption) -> None:
+    def __init__(self, connection: Connection, cipher: IEncryption) -> None:
         self.connection = connection
         self.cipher = cipher
         self.createTable()

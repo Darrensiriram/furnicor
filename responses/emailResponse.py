@@ -5,7 +5,7 @@ from interface.IResponses import IResponse
 
 class EmailResponse(IResponse[str]):
 
-    def __int__(self,  name: Optional[str] = 'email',prompt: Optional[str] = 'Email: ') -> None:
+    def __init__(self,  name: Optional[str] = 'email',prompt: Optional[str] = 'Email: ') -> None:
         super().__init__(name,prompt)
 
     def _validate(self, value: str) -> Union[str, bool]:

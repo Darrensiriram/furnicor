@@ -1,7 +1,7 @@
 from typing import Callable, Dict, List, Tuple
 from model.log import Log
 from databaseActions.logActions import LogActions
-from sessionService import SessionService
+from services.sessionService import SessionService
 
 class LogService():
     session: SessionService

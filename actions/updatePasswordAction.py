@@ -6,7 +6,7 @@ from responses.emptyResponse import EmptyResponse
 from responses.passwordResponse import PasswordResponse
 from services.userService import UserService
 
-class UpdatePassword(IActions):
+class UpdatePasswordAction(IActions):
     session: SessionService
     userS: UserService
 
