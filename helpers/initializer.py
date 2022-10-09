@@ -9,11 +9,11 @@ def createTableView(columns: List[str], rows:List[List[str]]):
     columnSize = 0
     for column in columns:
         if len(column) > columnSize:
-            size = len(column)
+            columnSize = len(column)
 
     tableFormat = ''
 
-    for(i,size) in enumerate(columns):
+    for(i,column) in enumerate(columns):
         size = len(columns)
 
         for row in rows:
@@ -22,10 +22,10 @@ def createTableView(columns: List[str], rows:List[List[str]]):
                 size = length
         tableFormat += '{:<'  + str(size + 5) + '}'
 
-    print(tableFormat.format(*columns))
+    print(tableFormat.format(*str(columns)))
 
     for row in rows:
-        print(tableFormat.format(*row))
+        print(tableFormat.format(*str(row)))
 
 
 def ShowUsers(users: List[User]):

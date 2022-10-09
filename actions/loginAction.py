@@ -25,8 +25,7 @@ class LoginAction(IActions):
             EmptyResponse('password', 'Password: '),
         ]
     def handle(self, arguments: Dict[str, Any]) -> None:
-        valid = self.userS.login(arguments['useranme'], arguments['password'])
-
+        valid = self.userS.login(arguments['username'], arguments['password'])
         if valid is False:
             print("Errrr! login failed!")
             return

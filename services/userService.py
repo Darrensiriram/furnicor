@@ -2,8 +2,8 @@ from typing import Any, Dict, List
 from model.user import User
 from interface.IDatabaseActions import IDatabaseActions
 from helpers.passwordHasher import PasswordHasher
-from logService import LogService
-from sessionService import SessionService
+from services.logService import LogService
+from services.sessionService import SessionService
 
 
 class UserService():
@@ -12,7 +12,7 @@ class UserService():
     session: SessionService
     log: LogService
 
-    def __init__(self, action: IDatabaseActions[User], pwHasher: pwHasher, session: session, log: log):
+    def __init__(self, action: IDatabaseActions[User], pwHasher: PasswordHasher, session: SessionService, log: LogService):
         self.action = action
         self.pwHasher = pwHasher
         self.session = session
@@ -109,7 +109,7 @@ class UserService():
         (new_hash, new_salt) = self.pwHasher.hashPw(new_pw)
         self.action.update(
             id,
-            {'password': new_hash, 'salt': new_salt, 'has_temp_pwd' : 0},
+            {'password': new_hash, 'salt': new_salt, 'has_temp_password' : 0},
         )
         self.log.logInfo(f'Password has been changed for user: {user}')
 

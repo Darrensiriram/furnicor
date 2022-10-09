@@ -11,8 +11,8 @@ class ViewMemberAction(IActions):
     session: SessionService
 
     def __init__(self, session: SessionService, memberS: MemberService) -> None:
-        self.memberS = memberS
         self.session = session
+        self.memberS = memberS
 
     def is_actived(self) -> bool:
         return self.session.loginCheck()

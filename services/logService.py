@@ -23,5 +23,8 @@ class LogService():
         log = Log(message, is_suspicious=True, user=currentLoggedInUser)
         self.action.create(log)
 
+
+
+
     def selectAllLogs(self) -> List[Log]:
         return self.action.selectAll()

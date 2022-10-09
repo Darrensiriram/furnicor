@@ -19,7 +19,7 @@ class UpdatePasswordAction(IActions):
 
     def arguments(self) -> List[IResponse]:
         return [
-            EmptyResponse('old_pw', 'new password: '),
+            EmptyResponse('old_pw', 'old Password: '),
             PasswordResponse('new_pw', 'New Password: '),
             PasswordResponse('new_pw_confirm', 'Confirm new password: ')
         ]
@@ -34,7 +34,6 @@ class UpdatePasswordAction(IActions):
                 arguments['old_pw'],
                 arguments['new_pw'],
             )
-
             print('Successfully updated your password.')
         except ValueError:
             print('The entered old password is not correct.')

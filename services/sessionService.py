@@ -1,24 +1,22 @@
 from typing import Optional
 from model.user import User
 
+
 class SessionService():
-    user = Optional[User] = None
+    __user: Optional[User] = None
 
     @property
     def currentUser(self) -> User:
-        if self.user is None:
+        if self.__user is None:
             raise Exception(("There is no user available"))
-        return self.user
+        return self.__user
 
     @currentUser.setter
     def currentUser(self, user: Optional[User]):
-        self.user = user
+        self.__user = user
 
     def loginCheck(self) -> bool:
-        return self.user is not None
+        return self.__user is not None
 
-    def closeSession(self)-> None:
-        self.user = None
-
-
-
+    def closeSession(self) -> None:
+        self.__user = None

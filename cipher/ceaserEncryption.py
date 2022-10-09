@@ -1,51 +1,67 @@
 from typing import Optional
 from interface.IEncryption import IEncryption
 
-alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+ALPHABETWITHUPPER = ALPHABET + ALPHABET.upper()
 
 class CeasarEncryption(IEncryption):
+    __key: str
 
-    plaintText: str
+    def __init__(self, key: str) -> None:
+        """Construct the Vigenere Crypto class.
 
-    def __init__(self, plainText: str) -> None:
-        self.plaintText = plainText
-
+        Make sure the key is lowercase and only contains a-z characters."""
+        self.__key = key
 
     def encrypt(self, data: Optional[str]) -> Optional[str]:
-        if data is None: return None
+        """Encrypts the given string using Vigenere and returns it."""
+        if data is None:
+            return None
 
-        encrypt_ceasar = ''
-        shift = 4
+        curr_key_index = 0
+        encrypted = ''
+        for _, char in enumerate(data):
+            # Only encrypt a-zA-Z chars
+            if char not in ALPHABETWITHUPPER:
+                encrypted += char
+                continue
 
-        for i in self.plaintText:
-            if i in alphabet:
-                position = alphabet.find(i)
-                new_position = (position + shift) % 26
-                new_character = alphabet[new_position]
-                if i.isupper():
-                    new_character = new_character.upper()
-                encrypt_ceasar += new_character
-            else:
-                encrypt_ceasar += i
+            # The index of the current char in the key, so a = 0, b = 1, c = 2 etc.
+            shift_by = ALPHABET.index(self.__key[curr_key_index % len(self.__key)])
 
-        return encrypt_ceasar
+            # Add the index of the curr char to the keys index and keep it in the alphabet length
+            shifted = (ALPHABET.index(char.lower()) + shift_by) % len(ALPHABET)
+
+            # Uppercase if the char was uppercase
+            encrypted += ALPHABET[shifted].upper() if char.isupper() else ALPHABET[shifted]
+
+            # Shift the index of the key by 1
+            curr_key_index += 1
+        return encrypted
 
     def decrypt(self, data: Optional[str]) -> Optional[str]:
-        if data is None: return None
+        """Decrypts the string using the Vigenere cypher and returns it."""
+        if data is None:
+            return None
 
-        decrypt_caesar = ''
-        shift = 4
+        curr_key_index = 0
+        decrypted = ''
+        for _, char in enumerate(data):
+            # Only decrypt a-zA-Z chars
+            if char not in ALPHABETWITHUPPER:
+                decrypted += char
+                continue
 
-        for i in self.plaintText:
-            if i in alphabet:
-                position = alphabet.find(i)
-                new_position = (position - shift) % 26
-                new_character = alphabet[new_position]
-                if i.isupper():
-                    new_character = new_character.upper()
-                decrypt_caesar += new_character
-            else:
-                decrypt_caesar += i
-        result = str(decrypt_caesar)
+            # The index of the current char in the key, so a = 0, b = 1, c = 2 etc.
+            shifted_by = ALPHABET.index(self.__key[curr_key_index % len(self.__key)])
 
-        return result
+            # Subtract the index of the curr char
+            # to the keys index and keep it in the alphabet length
+            unshifted = (ALPHABET.index(char.lower()) - shifted_by) % len(ALPHABET)
+
+            # Uppercase if the char was uppercase
+            decrypted += ALPHABET[unshifted].upper() if char.isupper() else ALPHABET[unshifted]
+
+            # Shift the index of the key by 1
+            curr_key_index += 1
+        return decrypted

@@ -49,19 +49,22 @@ class IDatabaseActions(Generic[CorrectType]):
             return self.selectOne(Id)
 
         updateCriteria = ', '.join([f'{item[0]} = ?' for item in updates.items()])
-        prepared = ()
+
+        prepared = tuple()
 
         for k, v in updates.items():
+            print(k)
             if k not in self.allowedColumns:
                 raise Exception("Not a valid column ")
-            prepared =  prepared + \
-                        (self.cipher.encrypt(v) if k in self.encryptColumns() else v)
 
-            prepared = prepared + (Id)
+            prepared = prepared + (
+                (self.cipher.encrypt(v) if k in self.encryptColumns else v),
+            )
 
+            prepared = prepared + (Id, )
+        print(updateCriteria)
         self.connection.execute(f'UPDATE {table} SET {updateCriteria} WHERE id = ?', prepared)
         self.connection.commit()
-        self.connection.close()
 
         return self.selectOne(Id)
 
@@ -71,12 +74,16 @@ class IDatabaseActions(Generic[CorrectType]):
             raise TypeError("Criteria is not valid!")
         searchCriteria ='AND'.join([f' {item[0]} LIKE ? ' for item in criteria.items()])
 
-        prepared = ()
+        prepared = tuple()
         for k, v in criteria.items():
             if k not in self.allowedColumns:
                 raise TypeError("Not a valid Column!")
-            prepared = prepared + \
-                       (self.cipher.encrypt(v) if k in self.encryptColumns else v)
 
-            return self.connection.execute(f'SELECT * FROM {table} WHERE {searchCriteria}', prepared). fetchall()
+            prepared = prepared + (
+                (self.cipher.encrypt(v) if k in self.encryptColumns else v),
+            )
+
+
+        result = (self.connection.execute(f"SELECT * FROM {table} WHERE {searchCriteria}", prepared).fetchall())
+        return result
 

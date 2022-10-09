@@ -10,7 +10,7 @@ from interface.IDatabaseActions import IDatabaseActions
 
 class LogActions(IDatabaseActions[Log]):
 
-    userAction = IDatabaseActions[User]
+    userAction: IDatabaseActions[User]
 
     def allowedColumns(self) -> List[str]:
         return [
@@ -59,15 +59,16 @@ class LogActions(IDatabaseActions[Log]):
         self.connection.commit()
 
     def createTable(self) -> None:
-        self.connection.execute(
+        self.connection.execute((
             'CREATE TABLE IF NOT EXISTS logs('
             'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'message VARCHAR NOT NULL,'
-            'is_suspicious TINYINT NOT NULL,'
+            'is_suspicious INT,'
             'user_id INTEGER,'
-            'created_at TIMESTAMP NOT NULL,'
+            'created_at TIMESTAMP NOT NULL'
             ')'
-        )
+        ))
+        self.connection.commit()
 
 
     def encrypt(self, log: Log) -> Dict:
@@ -75,7 +76,7 @@ class LogActions(IDatabaseActions[Log]):
             'id' : log.id,
             'message': self.cipher.encrypt(log.message),
             'is_suspicious': log.is_suspicious,
-            'user_id': None if log.user is None else Log.user.id,
+            'user_id': None,
             'created_at': log.created_at,
         }
 

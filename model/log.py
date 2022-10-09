@@ -12,7 +12,7 @@ class Log(IModel):
     message: str
     user: Optional[User] = field(default=None)
     id: Optional[int] = field(default=None)
-    is_suspicious: bool = field(default=None)
+    is_suspicious: bool = field(default=False)
     created_at: datetime = field(default_factory=datetime.now)
 
 

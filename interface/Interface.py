@@ -17,11 +17,11 @@ class Interface:
             self.print_title()
             action = self.showActions()
             print()
-            action.handle(self.__get_arguments_for_Actions())
+            action.handle(self.__get_arguments_for_Actions(action))
             print()
-            input("Press Space to back to the command list.")
+            input("Press Enter to back to the command list.")
 
-            for _ in range(10):
+            for _ in range(2):
                 print()
 
 
@@ -32,7 +32,7 @@ class Interface:
 
 
     def showActions(self):
-        activateCommands = list(filter(lambda entry: entry[1].is_actived(),self.Actions.items()))
+        activateCommands = list(filter(lambda entry: entry[1].is_actived() ,self.Actions.items()))
 
         i = 1
 

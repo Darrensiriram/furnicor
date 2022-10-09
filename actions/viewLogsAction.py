@@ -10,8 +10,8 @@ class ViewLogsAction(IActions):
     log: LogService
 
     def __init__(self, session: SessionService, log: LogService) -> None:
-        self.session = SessionService
-        self.log = LogService
+        self.session = session
+        self.log = log
 
     def is_actived(self) -> bool:
         return(

@@ -39,12 +39,13 @@ class SelectResponse(IResponse[CorrectType]):
                 print(f'Invalid choice for the reponse {self.get_name()}, do it again')
                 continue
             break
-        return self._sanitize()
+        return self._sanitize(choice)
 
     def _validate(self, value: str) -> Union[str, bool]:
         return True
+
     def _sanitize(self, value: str) -> CorrectType:
         return self.valueTokey(value)
 
-    def valueTokey(self, value:str):
-        return [choice for (choice, value) in self.choices.items() if value == value[0]]
+    def valueTokey(self, value: str) -> CorrectType:
+        return [choice for (choice, value) in self.choices.items() if value == value][0]

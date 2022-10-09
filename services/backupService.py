@@ -5,14 +5,14 @@ from datetime import datetime
 from typing import List
 from services.logService import LogService
 
+
 class BackUpService:
     path: str
     log: LogService
 
-    def __init__(self, path: str, log:LogService):
+    def __init__(self, path: str, log: LogService):
         self.path = path
         self.log = log
-
 
     def backup(self) -> str:
 
@@ -22,12 +22,10 @@ class BackUpService:
             filename = datetime.now().strftime('%d-%m-%Y-%H-%M-%S')
             filepath = shutil.make_archive('backup', 'zip', f'{self.path}/data')
             destination = shutil.move(filepath, f'{self.path}/backups/{filename}.zip')
+            self.log.logInfo(f'backup made: {filename}.')
+            return destination
 
-        self.log.logInfo(f'backup made: {filename}.')
-
-        return destination
-
-    def restore(self, filename:str) -> None:
+    def restore(self, filename: str) -> None:
         filepath = f'{self.path}/backups/{filename}.zip'
         shutil.unpack_archive(filepath, f'{self.path}/data')
 

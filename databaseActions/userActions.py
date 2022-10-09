@@ -28,7 +28,7 @@ class UserActions(IDatabaseActions[User]):
         return [self.decryptTuple(value) for value in sql]
 
     def selectOne(self, Id: int) -> User:
-        sql = self.connection.execute('SELECT * FROM user WHERE id = ?', Id).fetchone()
+        sql = self.connection.execute('SELECT * FROM user WHERE id = ?', (Id,)).fetchone()
         if not sql:
             raise Exception(f"No user found with Id: {Id}")
         return self.decryptTuple(sql)
@@ -68,7 +68,7 @@ class UserActions(IDatabaseActions[User]):
     def encrypt(self, user: User) -> Dict:
         return {
             'id': user.id,
-            'username': self.cipher.encrypt(user.username),
+            'username': user.username,
             'first_name': self.cipher.encrypt(user.first_name),
             'last_name': self.cipher.encrypt(user.last_name),
             'role': user.role,
@@ -80,7 +80,7 @@ class UserActions(IDatabaseActions[User]):
 
     def decrypt(self, data: Dict) -> User:
         return User(
-            self.cipher.decrypt(data['username']),
+            data['username'],
             self.cipher.decrypt(data['first_name']),
             self.cipher.decrypt(data['last_name']),
             data['role'],
@@ -101,5 +101,5 @@ class UserActions(IDatabaseActions[User]):
             'password': data[5],
             'salt': data[6],
             'created_at': data[7],
-            'has_temporary_password': data[8],
+            'has_temp_password': data[8],
         })
